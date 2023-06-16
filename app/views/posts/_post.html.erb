@@ -14,11 +14,13 @@
     </div>
 
     <div class="col-6">
-      <% reaction = current_user.reactions.find_by(post: post) %>
-      <% if reaction.nil? %>
-        <%= button_to "Me gusta", reactions_path, params: { reaction: { post_id: post.id } }, method: :post, class: "btn btn-secondary w-100" %>
-      <% else %>
-        <%= button_to "No me gusta", reaction_path(reaction), method: :delete, class: "btn btn-secondary w-100" %>
+      <% if user_signed_in? %>
+        <% reaction = current_user.reactions.find_by(post: post) %>
+        <% if reaction.nil? %>
+          <%= button_to "Me gusta", reactions_path, params: { reaction: { post_id: post.id } }, method: :post, class: "btn btn-secondary w-100" %>
+        <% else %>
+          <%= button_to "No me gusta", reaction_path(reaction), method: :delete, class: "btn btn-secondary w-100" %>
+        <% end %>
       <% end %>
     </div>
   </div>
